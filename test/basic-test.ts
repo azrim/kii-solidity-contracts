@@ -3,10 +3,8 @@ import { expect } from "chai";
 
 describe("Basic Deployment", function () {
   it("Should deploy AirdropNFT contract", async function () {
-    const ContractFactory = await hre.ethers.getContractFactory("AirdropNFT");
-    const contract = await ContractFactory.deploy();
-    await contract.waitForDeployment();
+    const contract = await hre.viem.deployContract("AirdropNFT");
 
-    expect(await contract.getAddress()).to.properAddress;
+    expect(contract.address).to.be.properAddress;
   });
 });
