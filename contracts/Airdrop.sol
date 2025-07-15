@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract PreSigningData {
-    uint256 constant TOKEN_AMOUNT = 1_000_000_000_000_000_000; // 1 Kii
+    uint256 immutable TOKEN_AMOUNT = 1_000_000_000_000_000_000; // 1 Kii
 
     struct UserData {
         bool agreeTnC;
@@ -33,7 +33,8 @@ contract PreSigningData {
         string memory _referralCode,
         string memory _externalReferralCode
     ) public {
-        require(bytes(_shipName).length > 0, "Ship name cannot be empty.");
+        uint256 shipNameLength = bytes(_shipName).length;
+        require(shipNameLength > 0, "Ship name cannot be empty.");
         require(
             userRecords[_address].walletAddress == address(0),
             "This wallet is already registered."
@@ -108,7 +109,6 @@ contract PreSigningData {
 
         // Update user's conditions
         user.redempted = true;
-        userRecords[userAddress] = user;
 
         // Send Token
         payable(user.walletAddress).transfer(TOKEN_AMOUNT);
