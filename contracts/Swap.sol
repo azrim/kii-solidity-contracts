@@ -11,7 +11,7 @@ interface Bank {
 
 contract Swap {
     // pre-compiled cosmos bank module contract
-    address public bankContractAddress = 0x4381dC2aB14285160c808659aEe005D51255adD7;
+    address public immutable bankContractAddress = 0x4381dC2aB14285160c808659aEe005D51255adD7;
 
     function buySkii() external payable {
         require(msg.value >= 1 ether, "Insufficient KII sent");
