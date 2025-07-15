@@ -31,7 +31,8 @@ contract AirdropNFT is ERC721URIStorage {
         uint256 price,
         string[] memory _categories
     ) public payable returns (uint256) {
-        require(bytes(_tokenURI).length > 0, "Token URI must be provide");
+        uint256 tokenURILength = bytes(_tokenURI).length;
+        require(tokenURILength > 0, "Token URI must be provide");
         require(price != 0, "Price must be provide");
 
         // Increase the unique identifier for each NFT
