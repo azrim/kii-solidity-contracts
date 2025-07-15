@@ -7,8 +7,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 // ERC20 Smart contract
 contract OroToken is ERC20, Ownable {
-    uint constant _decimals = 1 * (1 ** 18);
-    uint constant _initial_suply = 100_000_000 * (10 ** 18);
+    uint immutable _decimals = 1 * (1 ** 18);
+    uint immutable _initial_suply = 100_000_000 * (10 ** 18);
     uint public oroConvetionRate = 15_000_000_000; // 1 ORO = 15.000M ukii
 
     address public pointerContract; // Address of the Pointer Contract
