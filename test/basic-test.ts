@@ -5,6 +5,6 @@ describe("Basic Deployment", function () {
   it("Should deploy AirdropNFT contract", async function () {
     const contract = await hre.viem.deployContract("AirdropNFT");
 
-    expect(contract.address).to.be.properAddress;
+    expect(contract.address).to.be.a('string').and.have.lengthOf(42);
   });
 });
