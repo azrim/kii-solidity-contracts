@@ -21,9 +21,13 @@ contract SignTC is Ownable {
         string memory email,
         string memory signDate
     ) public onlyOwner {
-        require(bytes(username).length > 0, "Username cannot be empty");
-        require(bytes(email).length > 0, "Email cannot be empty");
-        require(bytes(signDate).length > 0, "Sign Date cannot be empty");
+        uint256 usernameLength = bytes(username).length;
+        uint256 emailLength = bytes(email).length;
+        uint256 signDateLength = bytes(signDate).length;
+
+        require(usernameLength > 0, "Username cannot be empty");
+        require(emailLength > 0, "Email cannot be empty");
+        require(signDateLength > 0, "Sign Date cannot be empty");
 
         // Validate whether user already signed
         require(
@@ -42,7 +46,8 @@ contract SignTC is Ownable {
     function getUserSignInfo(
         string memory username
     ) public view returns (string memory, string memory, string memory) {
-        require(bytes(username).length > 0, "Username cannot be empty");
+        uint256 usernameLength = bytes(username).length;
+        require(usernameLength > 0, "Username cannot be empty");
 
         UserSignInfo memory userInfo = signedUsers[username];
 
