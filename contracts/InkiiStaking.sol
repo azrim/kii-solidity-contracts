@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract InkiiStaking {
-    address private owner; // My address for onlyOwner function
+    address private immutable owner; // My address for onlyOwner function
     uint256 public rewardPercentage;
     uint256 public stakingDuration; // staking duration in seconds
 
@@ -91,11 +91,15 @@ contract InkiiStaking {
         // Calculate the amount to be sent
         uint256 totalAmount = userStake.amount + userStake.reward;
 
-        // Delete user from staking list (zero value in mappings is zero)
-        stakes[msg.sender][stakePosition].amount = 0;
-
         // Send the staked value and reward
         payable(msg.sender).transfer(totalAmount);
+
+        // Efficiently remove the stake from the array by swapping with the last element and popping
+        uint256 lastIndex = stakes[msg.sender].length - 1;
+        if (stakePosition != lastIndex) {
+            stakes[msg.sender][stakePosition] = stakes[msg.sender][lastIndex];
+        }
+        stakes[msg.sender].pop();
 
         emit Unstaked(msg.sender, userStake.amount, userStake.reward);
     }
