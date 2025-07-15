@@ -10,7 +10,6 @@ contract Certifications is Ownable {
         string courseName;
         string role;
         uint256 completedHours;
-        string identityDocument;
         string email;
     }
 
@@ -44,7 +43,6 @@ contract Certifications is Ownable {
             courseName: _courseName,
             role: _role,
             completedHours: _completedHours,
-            identityDocument: _identityDocument,
             email: _email
         });
 
@@ -75,7 +73,7 @@ contract Certifications is Ownable {
         )
     {
         require(
-            bytes(userCertificates[identityDocument].identityDocument).length !=
+            bytes(userCertificates[identityDocument].name).length !=
                 0,
             "Certificate not found"
         );
